@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>To do list</h1>
+    <input type="text"
+    id="taskInput"
+    placeholder="add a task">
+
+    <button onclick="addTask()">Add</button>
+
+    <script>
+
+        function addTask(){
+            getTaskText();
+
+            // function addTask(){
+            // var taskInput = document.getElementById('taskInput');
+            // console.log(taskInput.value);
+        }
+    function getTaskText(){
+        const Input = document.getElementByID('taskInput');
+        const text = input.value.trim();
+        console.log("getTaskText"() called: "+ input.value);
+        return(text,input);
+
+
+</script>
+
+</body>
+</html>
