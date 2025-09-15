@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+
+
+    </style>
+    .done{
+        text-decoration: 
+    }
 </head>
 <body>
     <h1>To do list</h1>
@@ -45,12 +51,14 @@
 
         const deleteBtn = createDeleteButton(li);
         li.appendChild(deleteBtn);
-
         const taskSpan = document.createElement("span");
         taskSpan.textContent = taskText;
         
         const editBtn = createEditButton(li,taskSpan);
         li.appendChild(editBtn);
+
+        const doneBtn = createDoneButton(taskSpan);
+        li.appendChild(dobeBtn);
     }
 
     function createDeleteButton(li){
@@ -93,6 +101,22 @@
         } else {
             console.log("handleEditClick() -> no changes made");
         }
+    }
+
+    function createDoneButton(taskSpan){
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "Done";
+        doneBtn.onclick = () =>{
+            const li= taskSpan.parentElement;
+            console.log(li);
+
+            taskSpan.classList.add("done");
+
+            //const buttons = li.querySelectorAll("buttons");
+
+            console.log("Task completed", taskSpan.textContent, Date());
+        }
+        return doneBtn;
     }
 
 </script>
