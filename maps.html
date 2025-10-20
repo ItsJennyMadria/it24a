@@ -16,6 +16,10 @@
 
 <style>
     #map { height: 400px; }
+    .popup-image {
+            max-width: 200px;
+            height: auto;
+        }
 </style>
 
 </head>
@@ -25,11 +29,18 @@
 </body>
 <script>
     var map = L.map('map').setView([8.360524433834668, 124.86832294111598], 17); //instance of the map
+
     //imported tile layer from OpenStreetMap
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+var marker = L.marker([8.360053042057906, 124.86834154336864]).addTo(map);
+const dogeImage = "<img src='https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/250px-Original_Doge_meme.jpg' class='popup-image'>";
+const popupContent = `${dogeImage}<br><b>Hello world!</b><br>I am a popup.`;
+
+marker.bindPopup(popupContent).openPopup();//bind popup to marker
 
 </script>
 </html>
