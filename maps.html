@@ -28,19 +28,32 @@
      <div id="map"></div>
 </body>
 <script>
-    var map = L.map('map').setView([8.360524433834668, 124.86832294111598], 17); //instance of the map
+function initMap(mapDataUrl){
 
+    var map = L.map('map').setView([8.360524433834668, 124.86832294111598], 17); //instance of the map
     //imported tile layer from OpenStreetMap
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    console.log("Map Loaded " + Date());//log map load time
 
-var marker = L.marker([8.360053042057906, 124.86834154336864]).addTo(map);
-const dogeImage = "<img src='https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/250px-Original_Doge_meme.jpg' class='popup-image'>";
-const popupContent = `${dogeImage}<br><b>Hello world!</b><br>I am a popup.`;
+    fetch(mapDataUrl)//it creates a request to the server and fetches the data
+        .then(response => response.json())//parses the response as JSON
+        .then(data => {//process the data
+            data.forEach(pin=> {//iterate through each location in the data
+                const marker = L.marker([pin.lat, pin.lng]).addTo(map);
+                const img = `<img src=' + '${pin.img}' + ' class=popup-image>`;//create image element for popup
+                const popupContent = `${Img}<br><b> ${pin.title} </b><br> ${pin.description} `;//create popup content
 
-marker.bindPopup(popupContent).openPopup();//bind popup to marker
+                console.log(`${pin.name} Loaded ` +Date());
+        });
+    })
+    .catch(error => console.error('Error loading JSON:', error));//handle errors
+}
 
+document.addEventListener('DOMContentLoaded',()=>{
+    initMap('map_data.json');//initialize map with data from map_data.json
+})
 </script>
 </html>
