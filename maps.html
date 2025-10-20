@@ -20,6 +20,7 @@
             max-width: 200px;
             height: auto;
         }
+
 </style>
 
 </head>
@@ -28,6 +29,7 @@
      <div id="map"></div>
 </body>
 <script>
+
 function initMap(mapDataUrl){
 
     var map = L.map('map').setView([8.360524433834668, 124.86832294111598], 17); //instance of the map
@@ -38,22 +40,22 @@ function initMap(mapDataUrl){
     }).addTo(map);
     console.log("Map Loaded " + Date());//log map load time
 
-    fetch(mapDataUrl)//it creates a request to the server and fetches the data
-        .then(response => response.json())//parses the response as JSON
-        .then(data => {//process the data
-            data.forEach(pin=> {//iterate through each location in the data
-                const marker = L.marker([pin.lat, pin.lng]).addTo(map);
-                const img = `<img src=' + '${pin.img}' + ' class=popup-image>`;//create image element for popup
-                const popupContent = `${Img}<br><b> ${pin.title} </b><br> ${pin.description} `;//create popup content
-
+ fetch(mapDataUrl)
+        .then(response => response.json())
+        .then(data =>{
+            data.forEach(pin=>{
+                const marker = L.marker([pin.lat,pin.lng]).addTo(map);
+                const img = `<img src='${pin.img}' class="popup-image">`;
+                marker.bindPopup(`${img}<br><b> ${pin.title} </b><br> ${pin.description}`);
+                
                 console.log(`${pin.name} Loaded ` +Date());
-        });
-    })
-    .catch(error => console.error('Error loading JSON:', error));//handle errors
+            });
+        })
+        .catch(err=>console.error('Error loading JSON:',err));
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-    initMap('map_data.json');//initialize map with data from map_data.json
+    initMap('maps.json');
 })
 </script>
 </html>
